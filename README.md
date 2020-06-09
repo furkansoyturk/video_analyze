@@ -16,3 +16,7 @@ npm run electron
 
 # Screenshot
 <img src="/images/Screenshot.png" height="450px" width="650px">
+
+## License
+
+MIT<br />
