@@ -23,12 +23,49 @@
       </div>
     </form>
 
+    <div class="container">
+        <div class="item1">
+          <h3 id="metadataFormat" class="leftBox"></h3>
+        </div>
+        <div class="item2">
+          <h3 id="metadataColor" class="rightBox"></h4>
+        </div>
+    </div>
+
     <script>
-      document.querySelector("form").addEventListener("submit", (event) => {
+      const electron = require('electron');
+      const { ipcRenderer } = electron;
+
+      document.querySelector('form').addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const file = document.querySelector("input").files[0];
+        const { path } = document.querySelector('input').files[0];
+
+        ipcRenderer.send('video:submit', path);
       });
+
+      ipcRenderer.on('video:metadata', (event, metadata) => {
+        document.querySelector('#metadataFormat').innerHTML = `
+          File Name : ${metadata.format.filename} <br/>
+          Format Name : ${metadata.format.format_name} <br/>
+          Duration : ${metadata.format.duration} Seconds <br/>
+          Size : ${metadata.format.size} KB <br/>
+        `;
+      });
+
+      ipcRenderer.on('video:metadata', (event, metadata) => {
+        document.querySelector('#metadataColor').innerHTML = `
+        Codec Name : ${metadata.streams[0].codec_name} <br/>
+        Color Range: ${metadata.streams[0].color_range} <br/>
+        Color Space: ${metadata.streams[0].color_space} <br/>
+        `;
+      });
+
+      // ipcRenderer.on('video:metadata', (event, metadata) => {
+      //   document.querySelector(
+      //     '#result'
+      //   ).innerHTML = `video is ${metadata.format.duration} seconds `;
+      // });
     </script>
   </body>
 </html>
