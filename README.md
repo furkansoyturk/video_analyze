@@ -2,13 +2,17 @@
 
 Electron project for personal training that find some properties of video.
 
-## Installation
+## 💾 Installation 
 
 ```bash
 brew install ffmpeg
 npm install
-npm run electron    
 ```
-       
+## Usage
+* To run the program.
+```bash
+npm run electron
+```
+
 # Screenshot
 <img src="/images/Screenshot.png" height="450px" width="650px">
